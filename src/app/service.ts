@@ -13,6 +13,7 @@ export class Service {
 
   constructor() {
     this.initServers();
+    this.initApps();
   }
 
   public get serverList(): ReadonlyArray<ServerItem> {
@@ -41,6 +42,9 @@ export class Service {
     }
   }
 
+  public addApp(app: AppItem) {
+  }
+
   private initServers() {
     for (let i = 0; i < this.MIN_SERVERS; i++) {
       this.servers.push({
@@ -49,4 +53,28 @@ export class Service {
     }
   }
 
+  private initApps() {
+    this.apps = [
+      {
+        id: 'hd',
+        name: 'Hadoop',
+      },
+      {
+        id: 'rl',
+        name: 'Rails',
+      },
+      {
+        id: 'ch',
+        name: 'Chronos',
+      },
+      {
+        id: 'st',
+        name: 'Storm',
+      },
+      {
+        id: 'sp',
+        name: 'Spark',
+      },
+    ];
+  }
 }
