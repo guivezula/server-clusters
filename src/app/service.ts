@@ -36,13 +36,24 @@ export class Service {
       this.servers.map(() => ({ type: 'empty' }));
     } else  {
       const deleted = this.servers.splice(0, 1);
-      if (deleted[0].type !== 'empty') {
-        // TODO insert app
+      if (deleted[0].type === 'app') {
+        this.addApp(deleted[0].app);
       }
     }
   }
 
   public addApp(app: AppItem) {
+    const emptyClusters = this.servers
+      .filter(item => item.type === 'empty');
+    if (!!emptyClusters && emptyClusters.length === this.servers.length) {
+      this.servers[0] = {
+        app,
+        type: 'app',
+        createdAt: new Date(),
+      };
+      return;
+    }
+
   }
 
   private initServers() {
