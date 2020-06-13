@@ -4,6 +4,7 @@ export interface AppItem {
 }
 
 export interface ServerItem {
-    type: 'empty'| 'cluster';
+    type: 'empty'| 'app';
     app?: AppItem;
+    createdAt?: Date;
 }
