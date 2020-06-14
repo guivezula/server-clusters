@@ -1,0 +1,52 @@
+@import '../../themes/variables';
+@import '../../themes/_variables';
+
+.server-container {
+    height: 100vh;
+}
+
+@each $theme, $color in $theme-colors {
+   .menu-item-#{$theme} {
+       border-left: 3px solid $color !important;
+   } 
+}
+
+button:focus {
+    outline: transparent !important;
+    outline: 0 !important;
+    -webkit-appearance: none !important;
+}
+
+.position-absolute {
+    right: -19px;
+    top: 15%;
+}
+
+@media (max-width: 767px) {
+    .position-absolute {
+        right: 0 !important;
+    }
+}
+
+
+.justify-content-center {
+    justify-content: unset !important;
+}
+
+.justify-content-start {
+    justify-content: flex-start !important;
+}
+
+@media (max-width: 479px) {
+    .justify-content-start {
+        justify-content: unset !important;
+    }
+
+    .justify-content-center {
+        justify-content: center !important;
+    }
+}
+
+.card {
+    min-height: 22vh;
+}
