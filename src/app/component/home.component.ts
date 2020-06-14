@@ -15,8 +15,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private service: Service) { }
 
-  public getCounter(appId: string) {
+  public newServer() {
+    this.service.addServer();
+  }
 
+  public destroyServer() {
+    this.service.removeServer();
   }
 
   private getLists() {

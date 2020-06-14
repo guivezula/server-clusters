@@ -1,11 +1,11 @@
 <div class="row server-container no-gutters">
   <div class="col col-12 col-sm-12 col-md-3 bg-empty">
     <div class="d-flex justify-content-around align-items-center mb-5">
-      <button class="btn btn-link">
+      <button class="btn btn-link" (click)="newServer()">
         <i class="fa fa-plus-circle h1 text-white"></i>
         <p class="h6 text-white"><small>Novo servidor</small></p>
       </button>
-      <button class="btn btn-link">
+      <button class="btn btn-link" (click)="destroyServer()">
         <i class="fa fa-minus-circle h1 text-secondary"></i>
         <p class="h6 text-secondary"><small>Destruir</small></p>
       </button>
