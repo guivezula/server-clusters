@@ -10,7 +10,8 @@ export class Service {
   private readonly MAX_APPS = 2;
   private servers: ServerItem[] = [];
   private apps: AppItem[] = [];
-  private appsCounter: {[appId: string]: number} = {};
+
+  public appsCounter: {[appId: string]: number} = {};
 
   constructor() {
     this.initServers();
