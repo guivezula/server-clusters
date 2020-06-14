@@ -25,10 +25,6 @@ export class Service {
     return this.apps;
   }
 
-  public getCounter(appId: number): number {
-    return this.appsCounter[appId];
-  }
-
   public addServer() {
     this.servers.push({ apps: [] });
   }
