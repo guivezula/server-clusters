@@ -1,27 +1,31 @@
-# ServerClusters
+# Test Dev Front-end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+Esse arquivo README tem oobjetivo de explicar como executar e visualizar o desenvolvimento do teste da TagPlus. Além de apresentar os recursos e as bibliotecas externas utilizadas no mesmo.
 
-## Development server
+## Tecnologias
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Para o desenvolvimento, foi utilizado o framework [Angular CLI](https://github.com/angular/angular-cli), utilizando HTML, SCSS e Typescript.
 
-## Code scaffolding
+## Rodar o projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+For running, go to the main folder of the project, install all the dependencies, and run the running command, as it is shown bellow:
 
-## Build
+Para rodar o projeto é necessário ir para o diretório raiz do projeto `cd server-clusters`, instalar as dependencias (no caso deste projeto foi utilizado o npm do nodejs) `npm install`, rodar o projeto com o comando `ng serve` e assim que o projeto estiver compilado, utilizar o navegador em [localhost](http://localhost:4200) na porta 4200 (`http://localhost:4200`). 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```sh
+$ cd server-clusters
+$ npm install
+$ ng serve
+```
 
-## Running unit tests
+## Bibliotecas
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Estilização
 
-## Running end-to-end tests
+Duas bibliotecas de estilização foram utilizadas neste projeto: `bootstrap` e `font-awesome`. `Bootstrap` foi utilizado para estilizar e ajudar no design de acordo com o [mock](https://raw.githubusercontent.com/TagPlus/teste-dev-frontend/master/mockup.png) disponibilizado. Foi uma forma de deixar o teste mais fidedigno possível, sem perder muito tempo. Então a maioria das classes CSS utilizadas foram com `bootstrap`.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+`Font-awesome` é uma biblioteca de ícones, que podem ser utilizadas como classes CSS. Assim utilizei o mesmo para poder estilizar os ícones de adicionar/remover servidor e adicionar/remover um app. 
 
-## Further help
+### Pipe
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Foi utilizado um `pipe` para transformar a data de inicialização de um aplicativo para o tempo que foi inicializado. O `time-ago-pipe` foi instalado utilizando `npm install time-ago-pipe --save`, e foi utilizado no component `home` para transformar o atributo `createdAt` do objeto `app` para `a second ago`, `a minute ago`, e etc.
