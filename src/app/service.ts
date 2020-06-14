@@ -43,7 +43,6 @@ export class Service {
     if (this.isAllAtLeast(2)) { return; }
     this.appsCounter[app.id] += 1;
     if (!this.isAllAtLeast(1)) {
-      // tslint:disable-next-line:prefer-for-of
       for (let index = 0; index < this.servers.length; index++) {
         const server = this.servers[index];
         if (!server.apps.length) {
@@ -57,7 +56,6 @@ export class Service {
       return;
     }
     if (this.isAllAtLeast(1)) {
-      // tslint:disable-next-line:prefer-for-of
       for (let index = 0; index < this.servers.length; index++) {
         const server = this.servers[index];
         if (server.apps.length === 1) {
