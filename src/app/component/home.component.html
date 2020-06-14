@@ -24,10 +24,10 @@
             <small>{{ counter[app?.id] }}</small>
           </div>
           <div class="col col-4 col-sm-4 d-flex justify-content-around align-items-center position-absolute">
-            <button class="btn btn-link btn-sm">
+            <button class="btn btn-link btn-sm" (click)="removeApp(app)">
               <i class="fa fa-minus-circle h5 mb-0 text-secondary"></i>
             </button>
-            <button class="btn btn-link btn-sm">
+            <button class="btn btn-link btn-sm" (click)="addApp(app)">
               <i class="fa fa-plus-circle h5 mb-0" [ngClass]="'text-' + app?.name.toLocaleLowerCase()"></i>
             </button>
           </div>
@@ -37,7 +37,7 @@
   </div>
   <div class="col col-12 col-sm-12 col-md-9 p-3">
     <h3>Quadro de Servidores</h3>
-    <div class="row justify-content-start justify-content-center align-items-center flex-wrap flex-row">
+    <div id="wrap" class="row justify-content-start justify-content-center align-items-center flex-wrap flex-row">
       <div *ngFor="let server of servers"
         class="col col-10 col-sm-6 col-md-3 mt-4">
         <div class="card bg-empty" *ngIf="!server?.apps?.length"></div>
@@ -45,14 +45,23 @@
           *ngIf="server?.apps?.length === 1 && server?.apps[0] as app"
           [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
           <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
-          <h5 class="text-white bold">
-            {{ app?.name }}
-          </h5>
-          <h6>{{ app?.createdAt | timeAgo }}</h6>
+          <span class="text-white bold h5">
+            <small>{{ app?.name }}</small>
+          </span>
+          <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
         </div>
         <ng-container *ngIf="server?.apps?.length === 2">
-          <div class="row">
-            <div class="col col-6 col-sm-6 card" *ngFor="let app of server?.apps"></div>
+          <div class="row no-gutters">
+            <div class="col col-6 col-sm-6" *ngFor="let app of server?.apps">
+              <div class="card d-flex justify-content-center align-items-center"
+                [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
+                <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
+                <span class="text-white bold h5">
+                  <small>{{ app?.name }}</small>
+                </span>
+                <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
+              </div>
+            </div>
           </div>
         </ng-container>
       </div>
