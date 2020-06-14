@@ -1,70 +1,86 @@
-<div class="row server-container no-gutters">
-  <div class="col col-12 col-sm-12 col-md-3 bg-empty">
-    <div class="d-flex justify-content-around align-items-center mb-5">
-      <button class="btn btn-link" (click)="newServer()">
-        <i class="fa fa-plus-circle h1 text-white"></i>
-        <p class="h6 text-white"><small>Novo servidor</small></p>
-      </button>
-      <button class="btn btn-link" (click)="destroyServer()">
-        <i class="fa fa-minus-circle h1 text-secondary"></i>
-        <p class="h6 text-secondary"><small>Destruir</small></p>
-      </button>
-    </div>
-    <div class="pl-3">
-      <h6 class="text-secondary"><small>Apps Disponíveis</small></h6>
-    </div>
-    <ul class="list-group rounded-0 bg-primary">
-      <li *ngFor="let app of apps"
-        class="list-group-item bg-primary bold" [ngClass]="'menu-item-' + app?.name.toLocaleLowerCase()">
-        <div class="row no-gutters">
-          <div class="col col-4 col-sm-4 h6 mb-0">
-            {{ app?.name }}
-          </div>
-          <div class="col col-4 col-sm-4 h6 mb-0 text-secondary text-center">
-            <small>{{ counter[app?.id] }}</small>
-          </div>
-          <div class="col col-4 col-sm-4 d-flex justify-content-around align-items-center position-absolute">
-            <button class="btn btn-link btn-sm" (click)="removeApp(app)">
-              <i class="fa fa-minus-circle h5 mb-0 text-secondary"></i>
-            </button>
-            <button class="btn btn-link btn-sm" (click)="addApp(app)">
-              <i class="fa fa-plus-circle h5 mb-0" [ngClass]="'text-' + app?.name.toLocaleLowerCase()"></i>
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
+<div class="d-flex justify-content-center align-items-center server-container" *ngIf="isLoadingPage; else tmpPage">
+  <div class="spinner-grow m-2 text-hadoop" role="status">
   </div>
-  <div class="col col-12 col-sm-12 col-md-9 p-3">
-    <h3>Quadro de Servidores</h3>
-    <div id="wrap" class="row justify-content-start justify-content-center align-items-center flex-wrap flex-row">
-      <div *ngFor="let server of servers"
-        class="col col-10 col-sm-6 col-md-3 mt-4">
-        <div class="card bg-empty" *ngIf="!server?.apps?.length"></div>
-        <div class="card d-flex justify-content-center align-items-center"
-          *ngIf="server?.apps?.length === 1 && server?.apps[0] as app"
-          [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
-          <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
-          <span class="text-white bold h5">
-            <small>{{ app?.name }}</small>
-          </span>
-          <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
-        </div>
-        <ng-container *ngIf="server?.apps?.length === 2">
+  <div class="spinner-grow m-2 text-storm" role="status">
+  </div>
+  <div class="spinner-grow m-2 text-white" role="status">
+  </div>
+  <div class="spinner-grow m-2 text-chronos" role="status">
+  </div>
+  <div class="spinner-grow m-2 text-spark" role="status">
+  </div>
+  <div class="spinner-grow m-2 text-rails" role="status">
+  </div>
+</div>
+<ng-template #tmpPage>
+  <div class="row server-container no-gutters">
+    <div class="col col-12 col-sm-12 col-md-3 bg-empty">
+      <div class="d-flex justify-content-around align-items-center mb-5">
+        <button class="btn btn-link" (click)="newServer()">
+          <i class="fa fa-plus-circle h1 text-white"></i>
+          <p class="h6 text-white"><small>Novo servidor</small></p>
+        </button>
+        <button class="btn btn-link" (click)="destroyServer()">
+          <i class="fa fa-minus-circle h1 text-secondary"></i>
+          <p class="h6 text-secondary"><small>Destruir</small></p>
+        </button>
+      </div>
+      <div class="pl-3">
+        <h6 class="text-secondary"><small>Apps Disponíveis</small></h6>
+      </div>
+      <ul class="list-group rounded-0 bg-primary">
+        <li *ngFor="let app of apps"
+          class="list-group-item bg-primary bold" [ngClass]="'menu-item-' + app?.name.toLocaleLowerCase()">
           <div class="row no-gutters">
-            <div class="col col-6 col-sm-6" *ngFor="let app of server?.apps">
-              <div class="card d-flex justify-content-center align-items-center"
-                [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
-                <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
-                <span class="text-white bold h5">
-                  <small>{{ app?.name }}</small>
-                </span>
-                <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
-              </div>
+            <div class="col col-4 col-sm-4 h6 mb-0">
+              {{ app?.name }}
+            </div>
+            <div class="col col-4 col-sm-4 h6 mb-0 text-secondary text-center">
+              <small>{{ counter[app?.id] }}</small>
+            </div>
+            <div class="col col-4 col-sm-4 d-flex justify-content-around align-items-center position-absolute">
+              <button class="btn btn-link btn-sm" (click)="removeApp(app)">
+                <i class="fa fa-minus-circle h5 mb-0 text-secondary"></i>
+              </button>
+              <button class="btn btn-link btn-sm" (click)="addApp(app)">
+                <i class="fa fa-plus-circle h5 mb-0" [ngClass]="'text-' + app?.name.toLocaleLowerCase()"></i>
+              </button>
             </div>
           </div>
-        </ng-container>
+        </li>
+      </ul>
+    </div>
+    <div class="col col-12 col-sm-12 col-md-9 p-3">
+      <h3>Quadro de Servidores</h3>
+      <div id="wrap" class="row justify-content-start justify-content-center align-items-center flex-wrap flex-row">
+        <div *ngFor="let server of servers"
+          class="col col-10 col-sm-6 col-md-3 mt-4">
+          <div class="card bg-empty" *ngIf="!server?.apps?.length"></div>
+          <div class="card d-flex justify-content-center align-items-center"
+            *ngIf="server?.apps?.length === 1 && server?.apps[0] as app"
+            [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
+            <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
+            <span class="text-white bold h5">
+              <small>{{ app?.name }}</small>
+            </span>
+            <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
+          </div>
+          <ng-container *ngIf="server?.apps?.length === 2">
+            <div class="row no-gutters">
+              <div class="col col-6 col-sm-6" *ngFor="let app of server?.apps">
+                <div class="card d-flex justify-content-center align-items-center"
+                  [ngClass]="'bg-' + app?.name.toLocaleLowerCase()">
+                  <h3 class="text-white" [innerHTML]="app?.id | formatHeader"></h3>
+                  <span class="text-white bold h5">
+                    <small>{{ app?.name }}</small>
+                  </span>
+                  <span class="h6 text-primary"><small>{{ app?.createdAt | timeAgo }}</small></span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
