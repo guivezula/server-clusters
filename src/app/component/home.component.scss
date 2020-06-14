@@ -29,22 +29,25 @@ button:focus {
     }
 }
 
-
-.justify-content-center {
-    justify-content: unset !important;
-}
-
-.justify-content-start {
-    justify-content: flex-start !important;
+#wrap {
+    &.justify-content-center {
+        justify-content: unset !important;
+    }
+    
+    &.justify-content-start {
+        justify-content: flex-start !important;
+    }
 }
 
 @media (max-width: 479px) {
-    .justify-content-start {
-        justify-content: unset !important;
-    }
-
-    .justify-content-center {
-        justify-content: center !important;
+    #wrap {
+        &.justify-content-start {
+            justify-content: unset !important;
+        }
+    
+        &.justify-content-center {
+            justify-content: center !important;
+        }
     }
 }
 
