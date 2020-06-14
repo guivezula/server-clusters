@@ -1,10 +1,9 @@
 export interface AppItem {
     id: string;
     name: string;
+    createdAt?: Date;
 }
 
 export interface ServerItem {
-    type: 'empty'| 'app';
-    app?: AppItem;
-    createdAt?: Date;
+    apps: AppItem[];
 }
