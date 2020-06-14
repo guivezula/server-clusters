@@ -7,7 +7,6 @@ import { ServerItem, AppItem } from 'src/app/models';
 export class Service {
 
   private readonly MIN_SERVERS = 4;
-  private readonly MAX_APPS = 2;
   private servers: ServerItem[] = [];
   private apps: AppItem[] = [];
 
@@ -31,58 +30,50 @@ export class Service {
   }
 
   public addServer() {
-    this.servers.unshift({ apps: [] });
+    this.servers.push({ apps: [] });
   }
 
   public removeServer() {
     if (!this.servers.length) { return; }
-    const deleted = this.servers.splice(0, 1);
-    const emptyClusters = this.servers
-      .filter(item => !item.apps.length);
-    if (!emptyClusters || !emptyClusters.length) {
+    const deleted = this.servers.pop();
+    deleted.apps.forEach(app => this.appsCounter[app.id] -= 1);
+    if (deleted.apps.length <= this.serverAvailability() && deleted.apps.length > 0) {
+      deleted.apps.forEach(app => this.addApp(app));
       return;
-    }
-    if (deleted[0].apps.length > 0) {
-      deleted[0].apps.forEach(app => this.addApp(app));
     }
   }
 
   public addApp(app: AppItem) {
     if (this.isAllAtLeast(2)) { return; }
+    this.appsCounter[app.id] += 1;
     if (!this.isAllAtLeast(1)) {
-      this.servers.forEach((value, index) => {
-        if (!value.apps.length) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let index = 0; index < this.servers.length; index++) {
+        const server = this.servers[index];
+        if (!server.apps.length) {
           this.servers[index].apps.push({
             ...app,
             createdAt: new Date(),
           });
-          return;
+          break;
         }
-      });
-      // // tslint:disable-next-line:prefer-for-of
-      // for (let index = 0; index < this.servers.length; index++) {
-      //   const server = this.servers[index];
-      //   if (!server.apps.length) {
-      //     this.servers[index].apps.push({
-      //       ...app,
-      //       createdAt: new Date(),
-      //     });
-      //     break;
-      //   }
-      // }
+      }
+      return;
     }
     if (this.isAllAtLeast(1)) {
-      this.servers.forEach((value, index) => {
-        if (value.apps.length === 1) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let index = 0; index < this.servers.length; index++) {
+        const server = this.servers[index];
+        if (server.apps.length === 1) {
           this.servers[index].apps.push({
             ...app,
             createdAt: new Date(),
           });
-          return;
+          break;
         }
-      });
+      }
+      return;
     }
-    this.appsCounter[app.id] += 1;
   }
 
   public removeApp(app: AppItem) {
@@ -110,6 +101,13 @@ export class Service {
       }
     }
     return true;
+  }
+
+  private serverAvailability(): number {
+    const availability = this.servers.length * 2;
+    let counter = 0;
+    this.apps.forEach(app => counter += this.appsCounter[app.id]);
+    return availability - counter;
   }
 
   private initServers() {
