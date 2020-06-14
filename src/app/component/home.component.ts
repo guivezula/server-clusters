@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit {
       this.servers = this.service.serverList;
       this.apps = this.service.appList;
       this.counter = this.service.appsCounter;
-    }, 1000);
-    this.isLoadingPage = false;
+      this.isLoadingPage = false;
+    }, 4000);
   }
 
   ngOnInit() {
