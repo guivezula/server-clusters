@@ -1,0 +1,22 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+$primary: #212529;
+
+$theme-colors: (
+    primary: $primary,
+    empty: #343A40,
+    hadoop: #CC00C9,
+    rails: #351DF7,
+    chronos: #3096CF,
+    storm: #32E4AC,
+    spark: #61F400,
+);
+
+// Body
+$body-bg: $primary;
+$body-color: #ffffff;
+
+// Links
+$link-decoration: none;
+$link-hover-color: theme-color('yellow') !important;
+$link-hover-decoration: none;
