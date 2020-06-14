@@ -23,6 +23,14 @@ export class HomeComponent implements OnInit {
     this.service.removeServer();
   }
 
+  public addApp(app: AppItem) {
+    this.service.addApp(app);
+  }
+
+  public removeApp(app: AppItem) {
+    this.service.removeApp(app);
+  }
+
   private getLists() {
     this.isLoadingPage = true;
     setTimeout(() => {
