@@ -2,13 +2,13 @@
 
 Esse arquivo README tem oobjetivo de explicar como executar e visualizar o desenvolvimento do teste da TagPlus. Além de apresentar os recursos e as bibliotecas externas utilizadas no mesmo.
 
+No arquivo `service.ts`, onde foi feita toda a funcionalidade do teste, cada método está comentado para resumir como a lógica foi desenvolvida.
+
 ## Tecnologias
 
 Para o desenvolvimento, foi utilizado o framework [Angular CLI](https://github.com/angular/angular-cli), utilizando HTML, SCSS e Typescript.
 
 ## Rodar o projeto
-
-For running, go to the main folder of the project, install all the dependencies, and run the running command, as it is shown bellow:
 
 Para rodar o projeto é necessário ir para o diretório raiz do projeto `cd server-clusters`, instalar as dependencias (no caso deste projeto foi utilizado o npm do nodejs) `npm install`, rodar o projeto com o comando `ng serve` e assim que o projeto estiver compilado, utilizar o navegador em [localhost](http://localhost:4200) na porta 4200 (`http://localhost:4200`). 
 
