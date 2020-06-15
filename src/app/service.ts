@@ -17,18 +17,29 @@ export class Service {
     this.initApps();
   }
 
+  /**
+   * Método get para retornar a lista de servidores apenas para leitura
+   */
   public get serverList(): ReadonlyArray<ServerItem> {
     return this.servers;
   }
 
+  /** Método get para retornar a lista de apps apenas para leitura */
   public get appList(): ReadonlyArray<AppItem> {
     return this.apps;
   }
 
+  /**
+   * Adiciona um servidor vazio na lista de servidores
+   */
   public addServer() {
     this.servers.push({ apps: [] });
   }
 
+  /**
+   * Remove um servidor na lista e verifica se possui disponibilidade em outro
+   * servidor para alocar o(s) app(s), caso exista
+   */
   public removeServer() {
     if (!this.servers.length) { return; }
     const deleted = this.servers.pop();
@@ -39,6 +50,14 @@ export class Service {
     }
   }
 
+  /**
+   * Adiciona um app em um dos servidores obedecendo as regras de negócio
+   * @param app é o app em questão que vai ser adicionado ao servidor
+   * Se já existe 2 apps executando em cada servidor, a ação não é realizada
+   * Se exite um servidor sem nenhuma execução o app é adicionado no mesmo, ou
+   * Se existe em todos os servidores pelo menos uma execução, o app é
+   * adicionado no primeiro que tenha 1, o contador é incrementado
+   */
   public addApp(app: AppItem) {
     if (this.isAllAtLeast(2)) { return; }
     this.appsCounter[app.id] += 1;
@@ -70,6 +89,15 @@ export class Service {
     }
   }
 
+  /**
+   * Remove o app mais recente adicionado na lista de servidores
+   * @param app é o app a ser removido
+   * Se o app da lista de servidores é equivalente ao @param app, o indice
+   * do servidor, e o indice do app é adicionado junto com a data de criação
+   * O novo array é ordenado por data de criação, selecionando o mais
+   * recente (a primeira posição), removendoo app no servidor que o mesmo se
+   * encontrava
+   */
   public removeApp(app: AppItem) {
     const lastAddedApps: { createdAt: Date, aIndex: number, sIndex: number }[] = [];
     this.servers.forEach((server, sIndex) => {
@@ -88,6 +116,10 @@ export class Service {
     this.appsCounter[app.id] -= 1;
   }
 
+  /**
+   * Esse método retorna falso se ainda existe um servidor
+   * com o número de apps executando inferior a @param like
+   */
   private isAllAtLeast(like: number): boolean {
     for (const server of this.servers) {
       if (server.apps.length < like) {
@@ -97,6 +129,11 @@ export class Service {
     return true;
   }
 
+  /**
+   * Retorna o número de posições disponíveis na lista de servidores
+   * Subtrai o máximo disponível de acordo com o tamanho da lista
+   * pelo número de servidores já utilizados
+   */
   private serverAvailability(): number {
     const availability = this.servers.length * 2;
     let counter = 0;
@@ -104,6 +141,9 @@ export class Service {
     return availability - counter;
   }
 
+  /**
+   * Inicializa o cluster com 4 servidores vazios
+   */
   private initServers() {
     for (let i = 0; i < this.MIN_SERVERS; i++) {
       this.servers.push({
@@ -112,6 +152,10 @@ export class Service {
     }
   }
 
+  /**
+   * Inicializa os aplicativos disponíveis para o cluster
+   * e seus contadores
+   */
   private initApps() {
     this.apps = [
       {
